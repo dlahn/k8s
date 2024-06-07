@@ -83,13 +83,11 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           env:
-            {{- if not (empty ( include "kratos.dsn" . )) }}
             - name: DSN
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "kratos.secretname" . }}
+                  name: {{ include "kratos.dsn.secretname" . }}
                   key: dsn
-            {{- end }}
           {{- if $migrationExtraEnv }}
             {{- toYaml $migrationExtraEnv | nindent 12 }}
           {{- end }}

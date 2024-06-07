@@ -36,6 +36,19 @@ Create a secret name which can be overridden.
 {{- end -}}
 
 {{/*
+Create a DSN secret name which can be overridden.
+*/}}
+{{- define "kratos.dsn.secretname" -}}
+{{- if .Values.secret.dsn.nameOverride -}}
+{{- .Values.secret.dsn.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- else if .Values.secret.nameOverride -}}
+{{- .Values.secret.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{ include "kratos.fullname" . }}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "kratos.chart" -}}
